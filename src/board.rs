@@ -3,19 +3,19 @@ use std::fmt;
 
 #[derive(Debug)]
 pub struct Board<'a> {
-    pub previousStates: Vec<[&'a str; 64]>,
+    pub previous_states: Vec<[&'a str; 64]>,
     pub state: [&'a str; 64],
 }
 
 impl fmt::Display for Board<'_> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "+---+---+---+---+---+---+---+---+\n").unwrap();
+        writeln!(f, "+---+---+---+---+---+---+---+---+").unwrap();
         for row in (0..=7).rev() {
             let offset = row * 8;
-            write!(
+            writeln!(
                 f,
-                "| {} | {} | {} | {} | {} | {} | {} | {} | {}\n",
-                self.state[0 + offset],
+                "| {} | {} | {} | {} | {} | {} | {} | {} | {}",
+                self.state[offset],
                 self.state[1 + offset],
                 self.state[2 + offset],
                 self.state[3 + offset],
@@ -26,9 +26,9 @@ impl fmt::Display for Board<'_> {
                 row + 1
             )
             .unwrap();
-            write!(f, "+---+---+---+---+---+---+---+---+\n").unwrap();
+            writeln!(f, "+---+---+---+---+---+---+---+---+").unwrap();
         }
-        write!(f, "  a   b   c   d   e   f   g   h  \n")
+        writeln!(f, "  a   b   c   d   e   f   g   h  ")
     }
 }
 
@@ -36,12 +36,12 @@ impl Board<'_> {
     pub fn new() -> Self {
         Board {
             state: [" "; 64],
-            previousStates: vec![],
+            previous_states: vec![],
         }
     }
 
     pub fn reset(&mut self) {
-        self.previousStates.push(self.state);
+        self.previous_states.push(self.state);
         self.state = [
             "R", "N", "B", "Q", "K", "B", "K", "R",
             "P", "P", "P", "P", "P", "P", "P", "P",

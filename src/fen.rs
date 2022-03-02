@@ -1,5 +1,3 @@
-use std::{io, slice::SliceIndex};
-
 pub const DEFAULT_FEN: &str = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 // FEN is composed of a few parts:
@@ -19,24 +17,24 @@ pub const DEFAULT_FEN: &str = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQk
 #[allow(dead_code)]
 pub struct Fen<'a> {
     pub placement: Vec<&'a str>,
-    pub activeColor: char,
+    pub active_color: char,
     pub castling: &'a str,
-    pub enPassant: &'a str,
-    pub halfmoveTimer: &'a [u8],
-    pub fullmoveTimer: &'a [u8],
+    pub en_passant: &'a str,
+    pub halfmove_timer: &'a [u8],
+    pub fullmove_timer: &'a [u8],
 }
 
 impl Fen<'_> {
     pub fn new(input: &str) -> Fen {
-        let split_fen: Vec<&str> = input.split(" ").collect();
+        let split_fen: Vec<&str> = input.split(' ').collect();
 
         Fen {
             placement: split_fen[0].split('/').collect(),
-            activeColor: split_fen[1].chars().next().unwrap(),
+            active_color: split_fen[1].chars().next().unwrap(),
             castling: split_fen[2],
-            enPassant: split_fen[3],
-            halfmoveTimer: split_fen[4].as_bytes(),
-            fullmoveTimer: split_fen[5].as_bytes(),
+            en_passant: split_fen[3],
+            halfmove_timer: split_fen[4].as_bytes(),
+            fullmove_timer: split_fen[5].as_bytes(),
         }
     }
 }

@@ -17,21 +17,21 @@ impl fmt::Display for Player {
 }
 
 pub struct Game <'a> {
-    pub toMove: Player,
+    pub to_move: Player,
     pub board: Board<'a>,
-    pub halfTurn: u8,
-    pub fullTurn: u8,
-    pub enPassante: &'a str
+    pub half_turn: u8,
+    pub full_turn: u8,
+    pub en_passante: &'a str
 }
 
 impl Game<'static> {
     pub fn new() -> Game<'static> {
         Game {
-            toMove: Player::White,
+            to_move: Player::White,
             board: Board::new(),
-            halfTurn: 0,
-            fullTurn: 0,
-            enPassante: "-"
+            half_turn: 0,
+            full_turn: 0,
+            en_passante: "-"
         }
     }
 
@@ -42,8 +42,8 @@ impl Game<'static> {
 
 impl fmt::Display for Game<'_> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Current Player: {}\n", self.toMove.to_string());
-        write!(f, "Turn: {}\n", self.fullTurn);
-        write!(f, "{}", self.board)
+        writeln!(f, "Current Player: {}", self.to_move);
+        writeln!(f, "Turn: {}", self.full_turn);
+        writeln!(f, "{}", self.board)
     }
 }
