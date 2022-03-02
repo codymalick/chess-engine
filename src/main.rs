@@ -1,10 +1,8 @@
 mod board;
 mod fen;
+mod game;
 
 fn main() {
-    let mut board = board::Board::new();
-    println!("{}", board);
-
-    board.reset();
-    println!("{}", board)
+    let mut game = game::Game::new();
+    game.play()
 }
